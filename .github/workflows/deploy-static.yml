@@ -1,6 +1,5 @@
-name: Deploy static sites (pest-control + plumbing)
-
-"on":
+name: Deploy roofing static site
+on:
   push:
     branches:
       - main
@@ -10,15 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - SITE_SLUG: pest-control
-            REMOTE_DIR: /var/www/pest-control-static
-          - SITE_SLUG: plumbing
-            REMOTE_DIR: /var/www/plumbing-static
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +26,7 @@ jobs:
 
       - name: Build (Next export)
         env:
-          SITE_SLUG: ${{ matrix.SITE_SLUG }}
+          SITE_SLUG: roofing
         run: npx next build
 
       - name: Configure SSH
@@ -55,11 +45,11 @@ jobs:
 
       - name: Ensure remote dir exists
         run: |
-          ssh -o StrictHostKeyChecking=yes "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" "mkdir -p '${{ matrix.REMOTE_DIR }}'"
+          ssh -o StrictHostKeyChecking=yes "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" "mkdir -p '/var/www/roofing-static'"
 
       - name: Upload out/ via rsync
         run: |
-          rsync -az --delete ./out/ "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ matrix.REMOTE_DIR }}/"
+          rsync -az --delete ./out/ "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/var/www/roofing-static/"
 
       - name: Reload nginx
         run: |
