@@ -50,6 +50,14 @@ export default function RootLayout({
                 gtag('config', '${config.ga4Id}');
               `}
             </Script>
+            <Script id="phone-tracking" strategy="afterInteractive">
+              {`document.addEventListener('click', function(e) {
+                var el = e.target.closest('a[href^="tel:"]');
+                if (el && typeof gtag !== 'undefined') {
+                  gtag('event', 'phone_call_click', { event_category: 'conversion', event_label: el.href });
+                }
+              });`}
+            </Script>
           </>
         )}
         <Header
