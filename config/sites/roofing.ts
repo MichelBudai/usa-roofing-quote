@@ -4,8 +4,8 @@ export const roofingConfig = {
   slug: "roofing",
   siteUrl: "https://usa-roofing-quote.com",
   siteName: "USA Roofing Quote",
-  phoneTel: "tel:+18557663669",
-  phoneDisplay: "(855) 766-3669",
+  phoneTel: "tel:+18335675933",
+  phoneDisplay: "(833) 567-5933",
   ga4Id: "G-R5XHFLY3R3", // ← à remplir après création GA4
   services: [
     { slug: "roof-repair",          label: "Roof Repair Quote" },
