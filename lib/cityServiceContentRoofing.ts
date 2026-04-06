@@ -110,6 +110,8 @@ export function getRoofRepairCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const homeownershipRate = cityMetadata?.homeownershipRate;
+  const totalHousingUnits = cityMetadata?.totalHousingUnits;
 
   const introParagraphs = [
     `Get a free roof repair quote in ${cityName}, ${stateName}. This page connects you with licensed local roofers for leak repairs, shingle replacement, flashing work, and emergency repairs — no obligation.`,
@@ -125,6 +127,7 @@ export function getRoofRepairCityPageContent(
     medianYear ? `With a median build year of ${medianYear}, many ${cityName} homes have aging shingles and deteriorated flashing that are prime candidates for repair before they require full replacement.` : "",
     homeValue ? `With a median home value of $${homeValue.toLocaleString()} in ${cityName}, timely roof repair is one of the highest-ROI decisions a homeowner can make — a $500 repair today can prevent a $15,000 water damage claim tomorrow.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName} sees steady demand for roof repair — getting a quote early helps avoid the post-storm backlog.` : "",
+    homeownershipRate ? `With a homeownership rate of ${homeownershipRate}% in ${cityName}, roof repair is a common owner-driven investment — most residents addressing issues proactively to protect long-term property value.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} roofer can give you a repair estimate tailored to your roof's specific condition.`);
@@ -179,6 +182,7 @@ export function getRoofRepairCityPageContent(
         `Familiar with ${cityName}-area permit processes and common repair issues`,
         "Upfront pricing — no surprise fees after work begins",
         `Emergency availability in ${cityName} and surrounding ${stateAbbr} areas`,
+        ...(totalHousingUnits ? [`${cityName} has ${totalHousingUnits.toLocaleString()} housing units — local roofers are experienced with the roof types and repair requirements common across this market.`] : []),
       ], cityMetadata),
     },
     eeat: { title: "Why trust this guide", bullets: EEAT_BULLETS },
@@ -217,12 +221,15 @@ export function getRoofReplacementCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const medianHouseholdIncome = cityMetadata?.medianHouseholdIncome;
+  const medianGrossRent = cityMetadata?.medianGrossRent;
 
   const localParagraphs = [
     county ? `In ${county}, roof replacement permits are straightforward for licensed contractors who work the area regularly.` : "",
     medianYear ? `With a median build year of ${medianYear}, many ${cityName} homes are approaching or past the end of their original roof's service life.` : "",
     homeValue ? `With a median home value of $${homeValue.toLocaleString()} in ${cityName}, a new roof is one of the highest-ROI home improvements — typically returning 60–70% of cost at resale.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName} sees growing demand for quality roof replacements that protect long-term property values.` : "",
+    medianGrossRent ? `In ${cityName}, where median rent is $${medianGrossRent.toLocaleString()}/month, rental property owners especially need a durable replacement roof — a failed roof is one of the top habitability issues that landlords face.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} roofer can give you a full replacement estimate tailored to your home's size, pitch, and preferred materials.`);
@@ -286,7 +293,7 @@ export function getRoofReplacementCityPageContent(
     faq: {
       h2: `Roof Replacement FAQ — ${cityName}, ${stateName}`,
       items: [
-        { q: `How much does roof replacement cost in ${cityName}, ${stateAbbr}?`, a: `Roof replacement in ${cityName} typically ranges from $8,000 for a small home with asphalt shingles to $25,000+ for a large home with premium materials. A licensed ${cityName} roofer gives you a project-specific quote including materials, labor, permit, and disposal.` },
+        { q: `How much does roof replacement cost in ${cityName}, ${stateAbbr}?`, a: `Roof replacement in ${cityName} typically ranges from $8,000 for a small home with asphalt shingles to $25,000+ for a large home with premium materials. A licensed ${cityName} roofer gives you a project-specific quote including materials, labor, permit, and disposal.${medianHouseholdIncome ? ` In ${cityName}, where median household income is $${Number(medianHouseholdIncome).toLocaleString()}, most homeowners budget for this as a planned home improvement.` : ""}` },
         { q: `How long does roof replacement take in ${cityName}?`, a: `Most residential roof replacements in ${cityName} take 1–3 days. Large or complex roofs may take up to 5 days. Your contractor will provide a completion timeline before work starts.` },
         { q: `What warranty comes with a new roof in ${cityName}?`, a: `Material warranties from major manufacturers run 25–50 years on premium shingles. Workmanship warranties from licensed ${cityName} contractors typically run 5–10 years.` },
         { q: `Does insurance cover roof replacement in ${cityName}?`, a: `Most homeowner policies cover sudden storm, hail, and wind damage. A licensed ${cityName} roofer can document the damage and assist with your claim at no extra charge.` },
@@ -318,6 +325,8 @@ export function getStormDamageRepairCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const homeownershipRate = cityMetadata?.homeownershipRate;
+  const totalHousingUnits = cityMetadata?.totalHousingUnits;
 
   const localParagraphs = [
     county ? `In ${county}, insurance adjusters and licensed roofers work together on storm claims regularly — a contractor familiar with the area knows what documentation your insurer requires.` : "",
@@ -368,7 +377,7 @@ export function getStormDamageRepairCityPageContent(
     whyCall: {
       h2: `Why ${cityName} Homeowners Call Immediately After a Storm`,
       paragraphs: [
-        `A free post-storm inspection from a licensed ${cityName} roofer tells you three critical things: whether you have damage, whether it's covered by insurance, and what it will cost if not. Hail damage is often invisible from the ground but clearly visible from the roof.`,
+        `A free post-storm inspection from a licensed ${cityName} roofer tells you three critical things: whether you have damage, whether it's covered by insurance, and what it will cost if not. Hail damage is often invisible from the ground but clearly visible from the roof.${homeownershipRate ? ` With a ${homeownershipRate}% homeownership rate in ${cityName}, local contractors are experienced with owner-occupied properties and understand the quality expectations that come with permanent roof repairs.` : ""}`,
         `Insurance claim windows are time-limited. Most homeowner policies require claims to be filed within 1–2 years of the damage event. Waiting months to get an inspection can jeopardize your right to file.`,
         `Emergency tarping prevents compounding damage. If your roof has active penetrations after a storm, every day without protection risks interior water damage. A licensed ${cityName} contractor can tarp within hours of your call.`,
       ],
@@ -381,6 +390,7 @@ export function getStormDamageRepairCityPageContent(
         `Insurance claims assistance — adjuster coordination included`,
         "Emergency tarping available same-day",
         `Serving ${cityName} and surrounding ${stateAbbr} areas — fast post-storm response`,
+        ...(totalHousingUnits ? [`${cityName} has ${totalHousingUnits.toLocaleString()} housing units — local storm damage contractors are experienced with the roof types common across this market.`] : []),
       ], cityMetadata),
     },
     eeat: { title: "Why trust this guide", bullets: EEAT_BULLETS },
@@ -419,12 +429,15 @@ export function getRoofInspectionCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const medianHouseholdIncome = cityMetadata?.medianHouseholdIncome;
+  const medianGrossRent = cityMetadata?.medianGrossRent;
 
   const localParagraphs = [
     county ? `In ${county}, a written roof inspection report is often required for real estate transactions and insurance renewals — a licensed contractor's report meets all local standards.` : "",
     medianYear ? `With a median build year of ${medianYear}, many ${cityName} homes have roofs approaching the end of their warranty period — an inspection now identifies issues while they're still repairable.` : "",
     homeValue ? `For a home with a median value of $${homeValue.toLocaleString()} in ${cityName}, a $0 inspection that reveals a $600 repair is one of the best financial decisions a homeowner can make.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName}'s real estate market means roof condition is increasingly scrutinized in home sales — a clean inspection report adds negotiating power.` : "",
+    medianHouseholdIncome ? `With a median household income of $${Number(medianHouseholdIncome).toLocaleString()} in ${cityName}, homeowners typically approach a roof inspection as a planned maintenance step — a licensed specialist helps you balance repair cost against long-term roof performance.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} roofer delivers a comprehensive written report you can use for insurance, real estate, or peace of mind.`);
@@ -470,7 +483,7 @@ export function getRoofInspectionCityPageContent(
       h2: `Why ${cityName} Homeowners Schedule Regular Roof Inspections`,
       paragraphs: [
         `A free annual or biennial inspection from a licensed ${cityName} roofer is the most cost-effective roof maintenance strategy available. Issues caught at inspection stage cost $200–$600 to fix. The same issues, discovered after a water leak has penetrated insulation and drywall, cost $3,000–$10,000 to remediate.`,
-        `After any significant storm in ${cityName}, an inspection is essential even if you see no visible damage from the ground. Hail damage is nearly always invisible from street level but clearly documented on the roof surface.`,
+        `After any significant storm in ${cityName}, an inspection is essential even if you see no visible damage from the ground. Hail damage is nearly always invisible from street level but clearly documented on the roof surface.${medianGrossRent ? ` In ${cityName}, where median rent is $${medianGrossRent.toLocaleString()}/month, rental property owners especially rely on inspection reports to maintain habitability standards and protect their investment.` : ""}`,
         `For home buyers and sellers in ${cityName}, a roof inspection is non-negotiable. A licensed ${cityName} roofer's written report provides the documentation both parties need.`,
       ],
     },
@@ -520,12 +533,15 @@ export function getMetalRoofingCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const homeownershipRate = cityMetadata?.homeownershipRate;
+  const totalHousingUnits = cityMetadata?.totalHousingUnits;
 
   const localParagraphs = [
     county ? `In ${county}, metal roofing permits and inspections are straightforward for experienced contractors who regularly work the area.` : "",
     medianYear ? `Many ${cityName} homeowners with homes built around ${medianYear} are replacing aging asphalt systems with metal — the step-up in cost often makes financial sense when factoring in a 40–70 year service life.` : "",
     homeValue ? `For a home valued at $${homeValue.toLocaleString()} in ${cityName}, metal roofing is a premium upgrade that increases resale value and eliminates the need for another replacement in the owner's lifetime.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName} sees growing demand for metal roofing as homeowners invest in durable, low-maintenance systems that outperform in the local climate.` : "",
+    homeownershipRate ? `With a homeownership rate of ${homeownershipRate}% in ${cityName}, metal roofing is a popular long-term investment — residents planning to stay in their homes benefit most from the 40–70 year lifespan of a properly installed metal system.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} metal roofing contractor can recommend the right system for your home's style and climate exposure.`);
@@ -583,6 +599,7 @@ export function getMetalRoofingCityPageContent(
         `Experienced with standing seam, metal shingles, and panel systems`,
         "Manufacturer warranties available — 40+ year material coverage",
         `Serving ${cityName} and surrounding ${stateAbbr} areas`,
+        ...(totalHousingUnits ? [`${cityName} has ${totalHousingUnits.toLocaleString()} housing units — local metal roofing specialists are experienced with the home styles and installation requirements common in this market.`] : []),
       ], cityMetadata),
     },
     eeat: { title: "Why trust this guide", bullets: EEAT_BULLETS },
@@ -621,6 +638,8 @@ export function getFlatRoofRepairCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const medianHouseholdIncome = cityMetadata?.medianHouseholdIncome;
+  const homeownershipRate = cityMetadata?.homeownershipRate;
 
   const localParagraphs = [
     county ? `In ${county}, flat roof drainage requirements vary by building type and age — a specialist familiar with local codes ensures your system meets current standards.` : "",
@@ -671,7 +690,7 @@ export function getFlatRoofRepairCityPageContent(
     whyCall: {
       h2: `Why ${cityName} Property Owners Get a Flat Roof Quote First`,
       paragraphs: [
-        `Flat roof repairs are often simple and low-cost if caught early — a failed seam or small puncture costs $400–$800 to fix professionally. The same issues, after months of water intrusion, can require full membrane replacement plus interior remediation: $8,000–$20,000+.`,
+        `Flat roof repairs are often simple and low-cost if caught early — a failed seam or small puncture costs $400–$800 to fix professionally. The same issues, after months of water intrusion, can require full membrane replacement plus interior remediation: $8,000–$20,000+.${homeownershipRate ? ` With a ${homeownershipRate}% homeownership rate in ${cityName}, local flat roofing contractors are experienced with owner-occupied properties and the quality standards that come with permanent installations.` : ""}`,
         `Flat roofs fail silently. Unlike pitched roofs where water runs to the ceiling, flat roof leaks often migrate horizontally through the insulation layer and appear at interior locations far from the actual penetration.`,
         `The repair vs. replace decision is financial, not just technical. A flat roof with 5+ years of remaining life that needs a $1,200 repair is worth repairing. One with 1–2 years left may be better replaced. A licensed ${cityName} contractor gives you this analysis as part of a free inspection.`,
       ],
@@ -690,7 +709,7 @@ export function getFlatRoofRepairCityPageContent(
     faq: {
       h2: `Flat Roof Repair FAQ — ${cityName}, ${stateName}`,
       items: [
-        { q: `How much does flat roof repair cost in ${cityName}, ${stateAbbr}?`, a: `Flat roof repair in ${cityName} ranges from $400 for a minor membrane patch to $8,000+ for a full membrane replacement. A free inspection from a licensed ${cityName} specialist gives you an accurate quote.` },
+        { q: `How much does flat roof repair cost in ${cityName}, ${stateAbbr}?`, a: `Flat roof repair in ${cityName} ranges from $400 for a minor membrane patch to $8,000+ for a full membrane replacement. A free inspection from a licensed ${cityName} specialist gives you an accurate quote.${medianHouseholdIncome ? ` In ${cityName}, where median household income is $${Number(medianHouseholdIncome).toLocaleString()}, most property owners approach flat roof repair as a planned maintenance investment.` : ""}` },
         { q: `How often do flat roofs need repair or replacement in ${cityName}?`, a: `With annual inspections and prompt repair of minor issues, TPO and EPDM membranes typically last 15–25 years. Modified bitumen: 15–20 years. Built-up roofing: 20–30 years.` },
         { q: `TPO vs. EPDM — which is better for ${cityName}?`, a: `Both are excellent choices. TPO is more reflective (better for heat climates), weldable (stronger seams), and currently more popular for new installations. EPDM is extremely durable and often lower cost. A licensed ${cityName} specialist advises based on your building type and climate.` },
         { q: `What causes ponding water on flat roofs in ${cityName}?`, a: `Ponding water is typically caused by inadequate slope design, blocked drains, insulation compression, or structural deflection. A licensed ${cityName} roofer can diagnose the cause and recommend the right correction.` },
@@ -722,12 +741,15 @@ export function getGutterInstallationCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const totalHousingUnits = cityMetadata?.totalHousingUnits;
+  const medianGrossRent = cityMetadata?.medianGrossRent;
 
   const localParagraphs = [
     county ? `In ${county}, local rainfall patterns and freeze-thaw cycles affect gutter system specifications — a contractor familiar with the area sizes and installs your system to handle local conditions.` : "",
     medianYear ? `Many ${cityName} homes built around ${medianYear} have original gutters that are past their service life — aging steel gutters rust through; aluminum gutters pull away from fascia as fasteners fail over time.` : "",
     homeValue ? `For a home valued at $${homeValue.toLocaleString()} in ${cityName}, properly functioning gutters protect your foundation, siding, and landscaping from water damage that can cost $5,000–$30,000 to remediate.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName} homeowners are increasingly investing in seamless gutters and guards to eliminate the maintenance burden of sectional systems.` : "",
+    medianGrossRent ? `In ${cityName}, where median rent is $${medianGrossRent.toLocaleString()}/month, rental property owners especially depend on properly functioning gutters to prevent foundation and siding damage that triggers habitability complaints.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} gutter contractor can give you a complete system quote sized correctly for your home and local rainfall.`);
@@ -785,6 +807,7 @@ export function getGutterInstallationCityPageContent(
         `Seamless gutter fabrication on-site — custom fit for your home`,
         "Gutter guard options available — reduce cleaning frequency",
         `Serving ${cityName} and surrounding ${stateAbbr} areas`,
+        ...(totalHousingUnits ? [`${cityName} has ${totalHousingUnits.toLocaleString()} housing units — local gutter specialists are experienced with the home styles and drainage requirements common across this market.`] : []),
       ], cityMetadata),
     },
     eeat: { title: "Why trust this guide", bullets: EEAT_BULLETS },
@@ -823,12 +846,14 @@ export function getEmergencyRoofRepairCityPageContent(
   const medianYear = cityMetadata?.medianYearBuilt;
   const homeValue = cityMetadata?.medianHomeValue;
   const growthSnippet = cityMetadata?.growthSnippet;
+  const medianHouseholdIncome = cityMetadata?.medianHouseholdIncome;
 
   const localParagraphs = [
     county ? `In ${county}, emergency roofing contractors are familiar with local permit requirements for emergency work and can move quickly to protect your home.` : "",
     medianYear ? `Many ${cityName} homes built around ${medianYear} have aging roofs more vulnerable to sudden failure — emergency repairs prevent minor events from becoming catastrophic water intrusions.` : "",
     homeValue ? `For a home valued at $${homeValue.toLocaleString()} in ${cityName}, emergency tarping within hours of storm damage prevents interior water damage that can cost 10x the roof repair itself.` : "",
     growthSnippet ? `As ${growthSnippet}, ${cityName} has experienced emergency roofing contractors who respond quickly and know the local area.` : "",
+    medianHouseholdIncome ? `With a median household income of $${Number(medianHouseholdIncome).toLocaleString()} in ${cityName}, homeowners understand that emergency tarping ($200–$500) is always a far better investment than the interior water damage it prevents.` : "",
   ].filter(Boolean) as string[];
 
   if (!localParagraphs.length) localParagraphs.push(`A licensed ${cityName} emergency roofer can tarp your roof and assess damage within hours of your call.`);
