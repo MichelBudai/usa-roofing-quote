@@ -23,10 +23,14 @@ jobs:
           SITE_SLUG: roofing
       - name: Generate split sitemaps
         run: node generate-sitemaps-ci.js
+      - name: Compress HTML and TXT on runner
+        run: |
+          find ./out/ -name "*.html" -exec gzip --best {} \; && find ./out/ -name "*.html.gz" | while read f; do mv "$f" "${f%.gz}"; done
+          find ./out/ -name "*.txt" ! -name "robots.txt" ! -name "llms.txt" -exec gzip --best {} \; && find ./out/ -name "*.txt.gz" | while read f; do mv "$f" "${f%.gz}"; done
       - name: Deploy to VPS
         env:
           VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
         run: |
           sudo apt-get install -y sshpass
           sshpass -p "${VPS_PASSWORD}" rsync -az --delete -e "ssh -o StrictHostKeyChecking=no" ./out/ root@187.124.147.244:/var/www/roofing-static/
-          sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -o ServerAliveCountMax=60 root@187.124.147.244 'find /var/www/roofing-static/ -name "*.html" -exec gzip --best {} \; ; find /var/www/roofing-static/ -name "*.html.gz" | while read f; do mv "$f" "${f%.gz}"; done ; find /var/www/roofing-static/ -name "*.txt" ! -name "robots.txt" ! -name "llms.txt" -exec gzip --best {} \; ; find /var/www/roofing-static/ -name "*.txt.gz" | while read f; do mv "$f" "${f%.gz}"; done ; nginx -t && systemctl reload nginx'
+          sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no root@187.124.147.244 'nginx -t && systemctl reload nginx'
